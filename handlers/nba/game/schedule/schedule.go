@@ -18,11 +18,13 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// Schedule playoff shedule
 type Schedule struct {
 	GameStartTime string
 	GameEndTime   string
 }
 
+// ScheduleBoardPrinter schedule board printer
 func (schedule *Schedule) ScheduleBoardPrinter() ([]*game.GameBoard, error) {
 	bList := make([]*game.GameBoard, 0)
 	if schedule.GameStartTime == "" || schedule.GameEndTime == "" {
@@ -50,6 +52,7 @@ func (schedule *Schedule) ScheduleBoardPrinter() ([]*game.GameBoard, error) {
 	return bList, nil
 }
 
+// ResultParser parse http json data
 func (schedule *Schedule) ResultParser(result string) (bMap map[string][]*game.GameBoard, bList []*game.GameBoard, err error) {
 	bMap = make(map[string][]*game.GameBoard)
 	bList = make([]*game.GameBoard, 0)
@@ -86,7 +89,7 @@ func (schedule *Schedule) ResultParser(result string) (bMap map[string][]*game.G
 					return false
 				}
 				board := &game.GameBoard{
-					GameId:        n.Get("gameId").String(),
+					GameID:        n.Get("gameId").String(),
 					GameStartTime: gameTime,
 					GameStatus:    n.Get("gameStatusText").String(),
 					SeriesText:    n.Get("seriesText").String(),
@@ -109,6 +112,7 @@ func (schedule *Schedule) ResultParser(result string) (bMap map[string][]*game.G
 	return bMap, bList, err
 }
 
+// PrintTable print table
 func (schedule *Schedule) PrintTable(bMap map[string][]*game.GameBoard) error {
 	var keys []string
 	for k := range bMap {

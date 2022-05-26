@@ -13,10 +13,12 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// PlayOffSchedule playoff shedule
 type PlayOffSchedule struct {
 	Year int
 }
 
+// PlayOffSchedulePrinter playoff shedule printer
 func (p *PlayOffSchedule) PlayOffSchedulePrinter() error {
 	url := fmt.Sprintf(constant.PLAYOFF_SCHEDULE_URL, p.Year)
 	log.Println("Playoff Schedule URL: ", url)

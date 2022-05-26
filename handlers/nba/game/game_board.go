@@ -1,5 +1,6 @@
 package game
 
+//
 var (
 	ColTitleIndex  = "#"
 	ColTitleTeams  = "Home  🏀  Away"
@@ -8,8 +9,9 @@ var (
 	ColTitleSeries = "Series"
 )
 
+// GameBoard game board
 type GameBoard struct {
-	GameId        string
+	GameID        string
 	GameStartTime string
 	GameStatus    string
 	SeriesText    string

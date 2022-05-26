@@ -10,7 +10,7 @@ import (
 func TestSummaryPrinter(t *testing.T) {
 	prepare.InitTestConfig()
 	Convey("SummaryPrinter", t, func() {
-		board := &SummaryBoard{GameId: "0042100102"}
+		board := &SummaryBoard{GameID: "0042100102"}
 		err := board.SummaryBoardPrinter()
 		So(err, ShouldBeNil)
 	})

@@ -26,7 +26,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "basket",
+	Use:   "basketball-go",
 	Short: "A Fast and Flexible 🏀 CLI",
 	// Long:  `A Fast and Flexible 🏀 CLI`,
 }
@@ -49,14 +49,14 @@ func PickUpGameDetails(boards []*game.GameBoard) {
 	fmt.Scanf("%s\n", &choice)
 	switch choice {
 	case "g":
-		s := board.SummaryBoard{GameId: boards[index-1].GameId}
+		s := board.SummaryBoard{GameID: boards[index-1].GameID}
 		err := s.SummaryBoardPrinter()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 	case "p":
-		p := board.PlayerBoard{GameId: boards[index-1].GameId}
+		p := board.PlayerBoard{GameID: boards[index-1].GameID}
 		err := p.PlayerBoardPrinter()
 		if err != nil {
 			fmt.Println(err)

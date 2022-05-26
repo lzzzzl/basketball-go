@@ -19,9 +19,11 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+// Today today
 type Today struct {
 }
 
+// TodayBoardPrinter today borad printer
 func (today *Today) TodayBoardPrinter() ([]*game.GameBoard, error) {
 	url := constant.TODAY_SCORE_BOARD_URL
 	log.Println("Today Score Board URL: ", url)
@@ -38,7 +40,7 @@ func (today *Today) TodayBoardPrinter() ([]*game.GameBoard, error) {
 	if err != nil {
 		return boards, err
 	}
-	err = PrintTime(result)
+	err = printTime(result)
 	if err != nil {
 		return boards, err
 	}
@@ -47,6 +49,7 @@ func (today *Today) TodayBoardPrinter() ([]*game.GameBoard, error) {
 	return boards, nil
 }
 
+// ResultParser parse http json data
 func (today *Today) ResultParser(result string) ([]*game.GameBoard, error) {
 	var boards []*game.GameBoard
 	if gjson.Get(result, "meta.code").Int() != 200 {
@@ -63,7 +66,7 @@ func (today *Today) ResultParser(result string) ([]*game.GameBoard, error) {
 		}
 		boards = append(boards, &game.GameBoard{
 			GameStartTime: utcTime,
-			GameId:        value.Get("gameId").String(),
+			GameID:        value.Get("gameId").String(),
 			GameStatus:    value.Get("gameStatusText").String(),
 			SeriesText:    value.Get("seriesText").String(),
 			HomeTeamName:  value.Get("homeTeam.teamName").String(),
@@ -81,7 +84,7 @@ func (today *Today) ResultParser(result string) ([]*game.GameBoard, error) {
 	return boards, nil
 }
 
-func PrintTime(json string) error {
+func printTime(json string) error {
 	if gjson.Get(json, "meta.code").Int() != 200 {
 		return errors.New("error response")
 	}
@@ -92,6 +95,7 @@ func PrintTime(json string) error {
 	return nil
 }
 
+// PrintTable print table
 func (today *Today) PrintTable(boards []*game.GameBoard) error {
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)

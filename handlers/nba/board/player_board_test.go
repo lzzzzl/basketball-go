@@ -10,7 +10,7 @@ import (
 func TestPlayerBoardPrinter(t *testing.T) {
 	prepare.InitTestConfig()
 	Convey("PlayerBoardPrinter", t, func() {
-		board := &PlayerBoard{GameId: "0042100102"}
+		board := &PlayerBoard{GameID: "0042100102"}
 		err := board.PlayerBoardPrinter()
 		So(err, ShouldBeNil)
 	})

@@ -42,16 +42,18 @@ var (
 	}
 )
 
+// PlayerBoard player board
 type PlayerBoard struct {
-	GameId          string
+	GameID          string
 	HomeTeamName    string
 	HomeTeamPlayers []*stats.PlayerStats
 	AwayTeamName    string
 	AwayTeamPlayers []*stats.PlayerStats
 }
 
+// PlayerBoardPrinter player board printer
 func (board *PlayerBoard) PlayerBoardPrinter() error {
-	url := fmt.Sprintf(constant.GAME_DETAILS_URL, board.GameId)
+	url := fmt.Sprintf(constant.GAME_DETAILS_URL, board.GameID)
 	log.Println("Player Board URL: ", url)
 	request := &request.HttpRequest{
 		Url:     url,
@@ -73,12 +75,13 @@ func (board *PlayerBoard) PlayerBoardPrinter() error {
 	return nil
 }
 
+// ResultParser parse http json data
 func (board *PlayerBoard) ResultParser(result string) error {
 	if gjson.Get(result, "meta.code").Int() != 200 {
 		return errors.New("response code wrong")
 	}
 	*board = PlayerBoard{
-		GameId: board.GameId,
+		GameID: board.GameID,
 		HomeTeamName: fmt.Sprintf("%s %s", gjson.Get(result, "game.homeTeam.teamCity").String(),
 			gjson.Get(result, "game.homeTeam.teamName").String()),
 		AwayTeamName: fmt.Sprintf("%s %s", gjson.Get(result, "game.awayTeam.teamCity").String(),
@@ -89,6 +92,7 @@ func (board *PlayerBoard) ResultParser(result string) error {
 	return nil
 }
 
+// PrintTable print table
 func (board *PlayerBoard) PrintTable() error {
 	t1 := table.NewWriter()
 	t2 := table.NewWriter()

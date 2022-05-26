@@ -1,5 +1,6 @@
 package stats
 
+// Stats ...
 type Stats struct {
 	Assits    int
 	Points    int
@@ -9,6 +10,7 @@ type Stats struct {
 	Rebounds  int
 }
 
+// PlayerStats ...
 type PlayerStats struct {
 	Name                    string  `json:"name"`
 	Position                string  `json:"position"`

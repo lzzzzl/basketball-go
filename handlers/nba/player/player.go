@@ -1,5 +1,6 @@
 package player
 
+// Player ...
 type Player struct {
 	JerseyNum int
 	FirstName string

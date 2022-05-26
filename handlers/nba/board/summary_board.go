@@ -19,8 +19,9 @@ import (
 
 var statsRows = table.Row{" / ", "ast", "blk", "stl", "tor", "reb"}
 
+// SummaryBoard summary game borad
 type SummaryBoard struct {
-	GameId         string
+	GameID         string
 	GameTime       string
 	AreanCity      string
 	AreanName      string
@@ -32,8 +33,9 @@ type SummaryBoard struct {
 	AwayTeamStats  stats.Stats
 }
 
+// SummaryBoardPrinter summary board printer
 func (board *SummaryBoard) SummaryBoardPrinter() error {
-	url := fmt.Sprintf(constant.GAME_DETAILS_URL, board.GameId)
+	url := fmt.Sprintf(constant.GAME_DETAILS_URL, board.GameID)
 	log.Println("Game Summary Board URL: ", url)
 	request := &request.HttpRequest{
 		Url:     url,
@@ -55,6 +57,7 @@ func (board *SummaryBoard) SummaryBoardPrinter() error {
 	return nil
 }
 
+// ResultParser parse http json data
 func (board *SummaryBoard) ResultParser(result string) error {
 	if gjson.Get(result, "meta.code").Int() != 200 {
 		return errors.New("response code wrong")
@@ -67,7 +70,7 @@ func (board *SummaryBoard) ResultParser(result string) error {
 		return err
 	}
 	*board = SummaryBoard{
-		GameId:         board.GameId,
+		GameID:         board.GameID,
 		GameTime:       utcTime,
 		AreanCity:      gjson.Get(result, "game.arena.arenaCity").String(),
 		AreanName:      gjson.Get(result, "game.arena.arenaName").String(),
@@ -96,6 +99,7 @@ func (board *SummaryBoard) ResultParser(result string) error {
 	return nil
 }
 
+// PrintTable print table
 func (board *SummaryBoard) PrintTable() error {
 	fmt.Printf("\n🗓  %s | 🏟  %s %s\n", board.GameTime, board.AreanCity, board.AreanName)
 	var headerRow, homeTeamRow, awayTeamRow table.Row
