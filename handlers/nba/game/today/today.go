@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/lzzzzl/basketball-go/modules/constant"
 	"github.com/lzzzzl/basketball-go/modules/log"
@@ -27,12 +26,12 @@ type Today struct {
 func (today *Today) TodayBoardPrinter() ([]*game.GameBoard, error) {
 	url := constant.TODAY_SCORE_BOARD_URL
 	log.Println("Today Score Board URL: ", url)
-	request := &request.HttpRequest{
-		Url:     url,
+	request := &request.HTTPRequest{
+		URL:     url,
 		Headers: constant.LIVE_HEADER,
 		TimeOut: 30,
 	}
-	result, err := request.HttpGet()
+	result, err := request.HTTPGet()
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +39,7 @@ func (today *Today) TodayBoardPrinter() ([]*game.GameBoard, error) {
 	if err != nil {
 		return boards, err
 	}
-	err = printTime(result)
+	err = PrintTime()
 	if err != nil {
 		return boards, err
 	}
@@ -84,13 +83,10 @@ func (today *Today) ResultParser(result string) ([]*game.GameBoard, error) {
 	return boards, nil
 }
 
-func printTime(json string) error {
-	if gjson.Get(json, "meta.code").Int() != 200 {
-		return errors.New("error response")
-	}
-	gameDate := gjson.Get(json, "scoreboard.gameDate").String()
-	gameDate = strings.ReplaceAll(gameDate, "-", "")
-	print.FigurePrint(gameDate, "starwars", "green")
+// PrintTime print time
+func PrintTime() error {
+	t := time.GetCurrentDate("2006")
+	print.FigurePrint(t, "starwars", "green")
 	fmt.Println("")
 	return nil
 }

@@ -51,12 +51,12 @@ type SeriesBrackets struct {
 func (p *Playoff) PlayoffBracketPrinter() error {
 	url := fmt.Sprintf(constant.PLAYOFF_BRACKET_URL, p.Year-1)
 	log.Println("Playoff Bracket URL: ", url)
-	request := &request.HttpRequest{
-		Url:     url,
+	request := &request.HTTPRequest{
+		URL:     url,
 		Headers: constant.LIVE_HEADER,
 		TimeOut: 30,
 	}
-	result, err := request.HttpGet()
+	result, err := request.HTTPGet()
 	if err != nil {
 		return err
 	}
@@ -234,7 +234,7 @@ func (p *Playoff) PrintTable(brackets *SeriesBrackets) error {
 
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
-	t.AppendHeader(table.Row{"WEST", "WEST", "WEST", " 🏆 ", "EAST", "EAST", "EAST"}, table.RowConfig{AutoMerge: true})
+	t.AppendHeader(table.Row{"WEST", "WEST", "WEST", "🏆", "EAST", "EAST", "EAST"}, table.RowConfig{AutoMerge: true})
 	t.AppendRow(table.Row{"Round1", "Conf.Series", "Conf.Finals", "Finals", "Conf.Finals", "Conf.Series", "Round1"})
 	t.AppendRow(table.Row{wR1O1H, " ", " ", " ", " ", " ", eR1O1H})
 	t.AppendRow(table.Row{wR1O1T, " ", " ", " ", " ", " ", eR1O1T})

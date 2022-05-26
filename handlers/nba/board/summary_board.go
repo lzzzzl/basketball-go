@@ -37,12 +37,12 @@ type SummaryBoard struct {
 func (board *SummaryBoard) SummaryBoardPrinter() error {
 	url := fmt.Sprintf(constant.GAME_DETAILS_URL, board.GameID)
 	log.Println("Game Summary Board URL: ", url)
-	request := &request.HttpRequest{
-		Url:     url,
+	request := &request.HTTPRequest{
+		URL:     url,
 		Headers: constant.LIVE_HEADER,
 		TimeOut: 5,
 	}
-	result, err := request.HttpGet()
+	result, err := request.HTTPGet()
 	if err != nil {
 		return err
 	}

@@ -4,6 +4,7 @@ import "github.com/sirupsen/logrus"
 
 var log *logrus.Logger
 
+// LogInit log init
 func LogInit(logLevel string) {
 	log = logrus.New()
 
@@ -24,14 +25,17 @@ func LogInit(logLevel string) {
 	log.SetLevel(level)
 }
 
+// Println pintln
 func Println(v ...interface{}) {
 	log.Info(v)
 }
 
+// Error error
 func Error(v ...interface{}) {
 	log.Error(v)
 }
 
+// Debug debug
 func Debug(v ...interface{}) {
 	log.Debug(v)
 }

@@ -5,16 +5,18 @@ import (
 	"net/http"
 )
 
-type HttpRequest struct {
-	Url     string
+// HTTPRequest http request
+type HTTPRequest struct {
+	URL     string
 	Params  string
 	Headers map[string]string
 	Proxy   string
 	TimeOut int
 }
 
-func (request *HttpRequest) HttpGet() (str string, err error) {
-	req, err := http.NewRequest("GET", request.Url, nil)
+// HTTPGet http get
+func (request *HTTPRequest) HTTPGet() (str string, err error) {
+	req, err := http.NewRequest("GET", request.URL, nil)
 	for key, value := range request.Headers {
 		req.Header.Add(key, value)
 	}

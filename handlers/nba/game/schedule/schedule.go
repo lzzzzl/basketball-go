@@ -32,12 +32,12 @@ func (schedule *Schedule) ScheduleBoardPrinter() ([]*game.GameBoard, error) {
 	}
 	url := constant.CURRENT_SEASON_SCHEDULE_URL
 	log.Println("Scheduler Board URL: ", url)
-	request := &request.HttpRequest{
-		Url:     url,
+	request := &request.HTTPRequest{
+		URL:     url,
 		Headers: constant.LIVE_HEADER,
 		TimeOut: 5,
 	}
-	result, err := request.HttpGet()
+	result, err := request.HTTPGet()
 	if err != nil {
 		return nil, err
 	}
