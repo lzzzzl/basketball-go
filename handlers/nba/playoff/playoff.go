@@ -296,8 +296,12 @@ func addWinOrGoHomeEmojiFromBracket(b *Bracket, winE string, loseE string) (stri
 		s1 = fmt.Sprintf("%d %s %s", hr, hc, loseE)
 		s2 = fmt.Sprintf("%d %s %s", lr, lc, winE)
 	case cnt != "":
-		s1 = fmt.Sprintf("%d %s", hr, hc)
-		s2 = fmt.Sprintf("%d %s", lr, lc)
+		if hc != "" {
+			s1 = fmt.Sprintf("%d %s", hr, hc)
+		}
+		if lc != "" {
+			s2 = fmt.Sprintf("%d %s", lr, lc)
+		}
 	default:
 	}
 	if !strings.Contains(s1, winE) {

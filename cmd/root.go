@@ -8,21 +8,22 @@ import (
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/schedule"
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/today"
 	"github.com/lzzzzl/basketball-go/handlers/nba/playoff"
+	"github.com/lzzzzl/basketball-go/handlers/nba/team"
 	"github.com/lzzzzl/basketball-go/modules/log"
 	"github.com/lzzzzl/basketball-go/modules/time"
 	"github.com/spf13/cobra"
 )
 
 var (
-	gameDay     string
-	isYesterday bool
-	isToday     bool
-	isTomorrow  bool
-	beforeDays  int
-	nextDays    int
-	// Playoff
+	gameDay             string
+	isYesterday         bool
+	isToday             bool
+	isTomorrow          bool
+	beforeDays          int
+	nextDays            int
 	playoffYear         int
 	playoffScheduleYear int
+	isTeamList          bool
 )
 
 var rootCmd = &cobra.Command{
@@ -167,6 +168,19 @@ var playOffCmd = &cobra.Command{
 	},
 }
 
+var teamCmd = &cobra.Command{
+	Use: "team",
+	Run: func(cmd *cobra.Command, args []string) {
+		switch {
+		case isTeamList:
+			t := &team.Team{}
+			if err := t.TeamListPrinter(); err != nil {
+				fmt.Println("team went wrong")
+			}
+		}
+	},
+}
+
 func init() {
 	scheduleCmd.PersistentFlags().BoolVarP(&isYesterday, "yesterday", "y", false, "yesterday game schedule")
 	scheduleCmd.PersistentFlags().BoolVarP(&isToday, "today", "t", false, "today game schedule")
@@ -177,6 +191,8 @@ func init() {
 
 	playOffCmd.PersistentFlags().IntVarP(&playoffYear, "bracket", "b", 0, "input year playoff eg. 2022")
 	playOffCmd.PersistentFlags().IntVarP(&playoffScheduleYear, "schedule", "s", 0, "input year playoff eg. 2022")
+
+	teamCmd.PersistentFlags().BoolVarP(&isTeamList, "list", "l", false, "list teams")
 }
 
 // Execute add sub commands and execute root command
@@ -184,6 +200,7 @@ func Execute() error {
 	rootCmd.AddCommand(
 		scheduleCmd,
 		playOffCmd,
+		teamCmd,
 	)
 	return rootCmd.Execute()
 }

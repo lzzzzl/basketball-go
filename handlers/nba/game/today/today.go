@@ -85,7 +85,7 @@ func (today *Today) ResultParser(result string) ([]*game.GameBoard, error) {
 
 // PrintTime print time
 func PrintTime() error {
-	t := time.GetCurrentDate("2006")
+	t := time.GetCurrentDate("20060102")
 	print.FigurePrint(t, "starwars", "green")
 	fmt.Println("")
 	return nil

@@ -16,5 +16,6 @@ const (
 	TODAY_SCORE_BOARD_URL       = "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
 	PLAYOFF_BRACKET_URL         = "https://stats.nba.com/stats/playoffbracket?LeagueID=00&SeasonYear=%d&State=2"
 	PLAYOFF_SCHEDULE_URL        = "https://www.nba.com/news/%d-nba-playoffs-schedule"
+	TEAM_URL                    = "https://www.nba.com/teams"
 	EST_ZONE                    = "America/New_York"
 )

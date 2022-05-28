@@ -11,7 +11,7 @@ import (
 func TestPlayoffBracketPrinter(t *testing.T) {
 	prepare.InitTestConfig()
 	Convey("SummaryPrinter", t, func() {
-		playoff := Playoff{Year: 2020}
+		playoff := Playoff{Year: 2022}
 		err := playoff.PlayoffBracketPrinter()
 		So(err, ShouldBeNil)
 	})
