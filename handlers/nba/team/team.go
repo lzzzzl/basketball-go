@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -40,7 +41,7 @@ func (t *Team) TeamListPrinter() error {
 		s.Find("div[class*='TeamDivisions_division']").Each(func(i int, m *goquery.Selection) {
 			distinct := m.Find("div[class*='TeamDivisions_divisionName']").Text()
 			if distinct != "" {
-				headerRow = append(headerRow, text.FgGreen.Sprintf("%10s", distinct))
+				headerRow = append(headerRow, text.FgGreen.Sprintf("%10s", strings.ToUpper(distinct)))
 			}
 			m.Find("div[class*='TeamDivisions_divisionTeams']").Each(func(i int, n *goquery.Selection) {
 				n.Find("a[class*='TeamFigure_tfMainLink']").Each(func(i int, k *goquery.Selection) {
