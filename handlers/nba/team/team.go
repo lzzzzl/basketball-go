@@ -1,8 +1,6 @@
 package team
 
 import (
-	"errors"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -11,6 +9,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/lzzzzl/basketball-go/modules/constant"
+	"github.com/lzzzzl/basketball-go/modules/errno"
 	"github.com/lzzzzl/basketball-go/modules/log"
 )
 
@@ -25,8 +24,11 @@ func (t *Team) TeamListPrinter() error {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode != 200 {
-		return errors.New(fmt.Sprintf("status code error: %d %s", res.StatusCode, res.Status))
+	if res.StatusCode != errno.OK.Code {
+		return &errno.Err{
+			Code:    res.StatusCode,
+			Message: res.Status,
+		}
 	}
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {

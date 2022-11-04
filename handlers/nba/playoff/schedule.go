@@ -1,12 +1,12 @@
 package playoff
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/lzzzzl/basketball-go/modules/constant"
+	"github.com/lzzzzl/basketball-go/modules/errno"
 	"github.com/lzzzzl/basketball-go/modules/log"
 	"github.com/lzzzzl/basketball-go/modules/print"
 
@@ -28,8 +28,11 @@ func (p *PlayOffSchedule) PlayOffSchedulePrinter() error {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode != 200 {
-		return errors.New(fmt.Sprintf("status code error: %d %s", res.StatusCode, res.Status))
+	if res.StatusCode != errno.OK.Code {
+		return &errno.Err{
+			Code:    res.StatusCode,
+			Message: res.Status,
+		}
 	}
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {

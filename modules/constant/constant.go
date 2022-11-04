@@ -11,11 +11,19 @@ var LIVE_HEADER = map[string]string{
 }
 
 const (
+	// BOARD
 	GAME_DETAILS_URL            = "https://cdn.nba.com/static/json/liveData/boxscore/boxscore_%s.json"
 	CURRENT_SEASON_SCHEDULE_URL = "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json"
 	TODAY_SCORE_BOARD_URL       = "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
-	PLAYOFF_BRACKET_URL         = "https://stats.nba.com/stats/playoffbracket?LeagueID=00&SeasonYear=%d&State=2"
-	PLAYOFF_SCHEDULE_URL        = "https://www.nba.com/news/%d-nba-playoffs-schedule"
-	TEAM_URL                    = "https://www.nba.com/teams"
-	EST_ZONE                    = "America/New_York"
+
+	// PLAYOFF
+	PLAYOFF_BRACKET_URL  = "https://stats.nba.com/stats/playoffbracket?LeagueID=00&SeasonYear=%d&State=2"
+	PLAYOFF_SCHEDULE_URL = "https://www.nba.com/news/%d-nba-playoffs-schedule"
+
+	// TEAM
+	TEAM_URL         = "https://www.nba.com/teams"
+	TEAM_RANKING_URL = "https://www.nba.com/standings?GroupBy=conf&Season=%s"
+
+	// ZONE
+	EST_ZONE = "America/New_York"
 )
