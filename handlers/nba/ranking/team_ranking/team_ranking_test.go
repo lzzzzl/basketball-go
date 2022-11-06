@@ -10,10 +10,8 @@ import (
 func TestTeamRankingPrinter(t *testing.T) {
 	prepare.InitTestConfig()
 	Convey("Test Team Ranking Printer", t, func() {
-		tRanking := &TeamRanking{
-			Season: "2022-23",
-		}
-		err := tRanking.TeamRankingPrinter()
+		tRanking := &TeamRanking{}
+		err := tRanking.TeamRankingPrinter("2023")
 		So(err, ShouldBeNil)
 	})
 }

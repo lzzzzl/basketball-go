@@ -8,6 +8,7 @@ import (
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/schedule"
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/today"
 	"github.com/lzzzzl/basketball-go/handlers/nba/playoff"
+	teamranking "github.com/lzzzzl/basketball-go/handlers/nba/ranking/team_ranking"
 	"github.com/lzzzzl/basketball-go/handlers/nba/team"
 	"github.com/lzzzzl/basketball-go/modules/log"
 	"github.com/lzzzzl/basketball-go/modules/time"
@@ -24,6 +25,7 @@ var (
 	playoffYear         int
 	playoffScheduleYear int
 	isTeamList          bool
+	isTeamRank          bool
 )
 
 var rootCmd = &cobra.Command{
@@ -181,6 +183,20 @@ var teamCmd = &cobra.Command{
 	},
 }
 
+var rankCmd = &cobra.Command{
+	Use: "rank",
+	Run: func(cmd *cobra.Command, args []string) {
+		year := time.GetPlusYear(0)
+		if len(args) > 0 {
+			year = args[0]
+		}
+		r := &teamranking.TeamRanking{}
+		if err := r.TeamRankingPrinter(year); err != nil {
+			fmt.Println("team ranking wrong")
+		}
+	},
+}
+
 func init() {
 	scheduleCmd.PersistentFlags().BoolVarP(&isYesterday, "yesterday", "y", false, "yesterday game schedule")
 	scheduleCmd.PersistentFlags().BoolVarP(&isToday, "today", "t", false, "today game schedule")
@@ -193,6 +209,8 @@ func init() {
 	playOffCmd.PersistentFlags().IntVarP(&playoffScheduleYear, "schedule", "s", 0, "input year playoff eg. 2022")
 
 	teamCmd.PersistentFlags().BoolVarP(&isTeamList, "list", "l", false, "list teams")
+
+	rankCmd.PersistentFlags().BoolVarP(&isTeamRank, "team", "t", false, "team ranking")
 }
 
 // Execute add sub commands and execute root command
@@ -201,6 +219,7 @@ func Execute() error {
 		scheduleCmd,
 		playOffCmd,
 		teamCmd,
+		rankCmd,
 	)
 	return rootCmd.Execute()
 }

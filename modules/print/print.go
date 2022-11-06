@@ -13,6 +13,16 @@ func FigurePrint(str string, style string, color string) {
 	myFigure.Print()
 }
 
+// RedString return string with red color
+func RedString(str string) string {
+	return text.FgRed.Sprintf("%s", str)
+}
+
+// GreenString return string with red color
+func GreenString(str string) string {
+	return text.FgGreen.Sprintf("%s", str)
+}
+
 // MaxScoreColor max score with color
 func MaxScoreColor(s1 string, s2 string) (str1 string, str2 string, err error) {
 	n1, err := strconv.Atoi(s1)

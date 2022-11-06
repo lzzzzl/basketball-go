@@ -13,8 +13,10 @@ import (
 	"github.com/lzzzzl/basketball-go/modules/log"
 )
 
+// Team ...
 type Team struct{}
 
+// TeamListPrinter ...
 func (t *Team) TeamListPrinter() error {
 	url := constant.TEAM_URL
 	log.Println("Team URL: ", url)

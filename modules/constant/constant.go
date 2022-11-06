@@ -22,7 +22,7 @@ const (
 
 	// TEAM
 	TEAM_URL         = "https://www.nba.com/teams"
-	TEAM_RANKING_URL = "https://www.nba.com/standings?GroupBy=conf&Season=%s"
+	TEAM_RANKING_URL = "https://www.espn.com/nba/standings/_/season/%s"
 
 	// ZONE
 	EST_ZONE = "America/New_York"
