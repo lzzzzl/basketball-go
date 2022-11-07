@@ -186,7 +186,7 @@ var teamCmd = &cobra.Command{
 var rankCmd = &cobra.Command{
 	Use: "rank",
 	Run: func(cmd *cobra.Command, args []string) {
-		year := time.GetPlusYear(0)
+		year := time.GetPlusYear(1)
 		if len(args) > 0 {
 			year = args[0]
 		}
