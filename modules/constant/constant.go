@@ -21,8 +21,11 @@ const (
 	PLAYOFF_SCHEDULE_URL = "https://www.nba.com/news/%d-nba-playoffs-schedule"
 
 	// TEAM
-	TEAM_URL         = "https://www.nba.com/teams"
-	TEAM_RANKING_URL = "https://www.espn.com/nba/standings/_/season/%s"
+	TEAM_URL = "https://www.nba.com/teams"
+
+	// RANKING
+	TEAM_RANKING_URL   = "https://www.espn.com/nba/standings/_/season/%s"
+	PLAYER_RANKING_URL = "https://www.espn.com/nba/stats/_/season/%s/seasontype/%s"
 
 	// ZONE
 	EST_ZONE = "America/New_York"

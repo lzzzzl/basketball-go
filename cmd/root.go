@@ -8,6 +8,7 @@ import (
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/schedule"
 	"github.com/lzzzzl/basketball-go/handlers/nba/game/today"
 	"github.com/lzzzzl/basketball-go/handlers/nba/playoff"
+	playerranking "github.com/lzzzzl/basketball-go/handlers/nba/ranking/player_ranking"
 	teamranking "github.com/lzzzzl/basketball-go/handlers/nba/ranking/team_ranking"
 	"github.com/lzzzzl/basketball-go/handlers/nba/team"
 	"github.com/lzzzzl/basketball-go/modules/log"
@@ -25,7 +26,6 @@ var (
 	playoffYear         int
 	playoffScheduleYear int
 	isTeamList          bool
-	isTeamRank          bool
 )
 
 var rootCmd = &cobra.Command{
@@ -183,8 +183,14 @@ var teamCmd = &cobra.Command{
 	},
 }
 
+// ####################### rank #######################
 var rankCmd = &cobra.Command{
-	Use: "rank",
+	Use:   "rank",
+	Short: "ranking team & player statictis",
+}
+
+var rankTeamCmd = &cobra.Command{
+	Use: "team",
 	Run: func(cmd *cobra.Command, args []string) {
 		year := time.GetPlusYear(1)
 		if len(args) > 0 {
@@ -193,6 +199,24 @@ var rankCmd = &cobra.Command{
 		r := &teamranking.TeamRanking{}
 		if err := r.TeamRankingPrinter(year); err != nil {
 			fmt.Println("team ranking wrong")
+		}
+	},
+}
+
+var rankPlayerCmd = &cobra.Command{
+	Use: "player",
+	Run: func(cmd *cobra.Command, args []string) {
+		year := time.GetPlusYear(1)
+		if len(args) >= 1 {
+			year = args[0]
+		}
+		_type := "2"
+		if len(args) >= 2 {
+			_type = args[1]
+		}
+		r := &playerranking.PlayerRanking{}
+		if err := r.PlayerRankingPrinter(year, _type); err != nil {
+			fmt.Println("player ranking wrong")
 		}
 	},
 }
@@ -210,7 +234,9 @@ func init() {
 
 	teamCmd.PersistentFlags().BoolVarP(&isTeamList, "list", "l", false, "list teams")
 
-	rankCmd.PersistentFlags().BoolVarP(&isTeamRank, "team", "t", false, "team ranking")
+	rankTeamCmd.PersistentFlags().StringP("year", "y", "", "input year eg. 2022")
+	rankPlayerCmd.PersistentFlags().StringP("year", "y", "", "input year eg. 2022")
+	rankPlayerCmd.PersistentFlags().StringP("type", "t", "", "input season type, eg. 2(regular season) / 3(postseasonn)")
 }
 
 // Execute add sub commands and execute root command
@@ -221,5 +247,6 @@ func Execute() error {
 		teamCmd,
 		rankCmd,
 	)
+	rankCmd.AddCommand(rankTeamCmd, rankPlayerCmd)
 	return rootCmd.Execute()
 }
