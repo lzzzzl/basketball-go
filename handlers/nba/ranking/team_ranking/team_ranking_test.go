@@ -13,5 +13,6 @@ func TestTeamRankingPrinter(t *testing.T) {
 		tRanking := &TeamRanking{}
 		err := tRanking.TeamRankingPrinter("2023")
 		So(err, ShouldBeNil)
+
 	})
 }
